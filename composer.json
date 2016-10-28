@@ -1,0 +1,32 @@
+{
+    "name": "dumkaaa/ExtService",
+    "description": "Library for work with external services",
+    "type": "library",
+    "keywords": [
+        "php",
+        "bitrix",
+        "yii2"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dmitriy Larionov",
+            "email": "dumkaaa72@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ExtService\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/dumkaaa/ExtService"
+        }
+    ]
+}
