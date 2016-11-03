@@ -2,13 +2,13 @@
 
 namespace ExtService;
 
-use app\ExtService\BaseGetter;
-use app\ExtService\BaseSetter;
-use ExtService\Interfaces\Request;
-use ExtService\Interfaces\Response;
-use ExtService\Interfaces\Service;
+use ExtService\Traits\BaseGetter;
+use ExtService\Traits\BaseSetter;
+use ExtService\BaseRequest;
+use ExtService\BaseResponse;
+use ExtService\Interfaces\Service as IService;
 
-class BaseService implements Service
+class BaseService implements IService
 {
     use BaseSetter, BaseGetter;
 
@@ -36,8 +36,18 @@ class BaseService implements Service
     {
     }
 
-    public function query(Request $request, Response $response)
+    public function query(BaseRequest $request, BaseResponse $response)
     {
-        // TODO: Implement query() method.
+        $request->query(
+            $request->getMethod(),
+            $request->getUrl(),
+            $request->getBody()
+        );
+
+        $response->setData($request->getResult());
+        $response->setCookies($request->getCookies());
+        $response->setStatus($request->getStatus());
+
+        return $response;
     }
 }

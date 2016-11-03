@@ -1,15 +1,15 @@
 <?php
 
-namespace app\ExtService;
+namespace ExtService\Traits;
 
 trait BaseGetter
 {
-    protected function getParams()
+    public function getParams()
     {
         return $this->_params;
     }
 
-    protected function getParam($name)
+    public function getParam($name)
     {
         return $this->_params[$name];
     }

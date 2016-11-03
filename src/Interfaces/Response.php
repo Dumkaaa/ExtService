@@ -7,29 +7,29 @@ interface Response
 {
     /*need*/
 
-    public function __construct(array $params = null);
+    /* public function __construct(array $params = null);
 
 
 
-    public function getHeaders(); /**/
+     public function getHeaders(); /--/
 
-    public function setHeaders($headers);
+     public function setHeaders($headers);
 
-    public function getCookie(); /**/
+     public function getCookie(); /--/
 
-    public function setCookie($cookie);
+     public function setCookie($cookie);
 
-    public function getData();  /**/
+     public function getData();  /--/
 
-    public function setData($data);
+     public function setData($data);
 
-    public function getError();
+     public function getError();
 
-    public function setError($message);
+     public function setError($message);
 
-    public function getStatus();
+     public function getStatus();
 
-    public function setStatus($status);
+     public function setStatus($status);*/
 
 
 

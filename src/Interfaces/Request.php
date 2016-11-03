@@ -12,35 +12,15 @@ interface Request
 
     public function setParam($name, $value);
 
-    public function setHeaders($headers);
+    public function setHeaders(array $headers);
 
 
 
-    public function setCookie($cookie);
+    public function setCookies(array $cookie);
 
 
 
-    public function setData($data);
-
-
-    /*temp
-
-    public function getParams();
-
-
-    public function getParam($name);
-
-
-    public function getData();
-
-
-
-    public function getCookie();
-
-
-    public function getHeaders();
-
-*/
+    //public function setData($data);
 
 
 

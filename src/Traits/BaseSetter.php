@@ -1,6 +1,6 @@
 <?php
 
-namespace app\ExtService;
+namespace ExtService\Traits;
 
 trait BaseSetter
 {
