@@ -35,6 +35,7 @@ class BaseResponse implements IResponse
     }
 
     /**
+    /**
      * @var mixed
      */
     protected $_cookie = null;

@@ -4,12 +4,12 @@
 namespace ExtService;
 
 use ExtService\Interfaces\Request as IRequest;
-use Bitrix\Main\Web\HttpClient;
+use Bitrix\Main\Web;
 
 /**
  * Объект с запросом к сервису
  */
-class BaseRequest extends HTTPClient implements IRequest
+class BaseRequest extends Web\HttpClient implements IRequest
 {
     /**
      * @var array
@@ -23,6 +23,10 @@ class BaseRequest extends HTTPClient implements IRequest
      */
     public function __construct(array $params = null)
     {
+        $this->requestHeaders = new Web\HttpHeaders();
+        $this->responseHeaders = new Web\HttpHeaders();
+        $this->requestCookies = new Web\HttpCookies();
+        $this->responseCookies = new Web\HttpCookies();
         $this->setParams($params);
     }
 
@@ -31,8 +35,11 @@ class BaseRequest extends HTTPClient implements IRequest
      * @param array $params
      * @return \soglasie\services\interfaces\Request
      */
-    public function setParams(array $params)
+    public function setParams(array $params = null)
     {
+        isset($params['cookies']) ? $this->setCookies($params['cookies']) : '';
+        isset($params['headers']) ? $this->setHeaders($params['headers']) : '';
+
         foreach ($params as $name => $value) {
             $this->setParam($name, $value);
         }
