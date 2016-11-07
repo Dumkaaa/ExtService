@@ -17,7 +17,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.2",
-        "marvin255/bxpimple": "dev-master"
     },
     "autoload": {
         "psr-4": {
@@ -29,9 +28,5 @@
             "type": "git",
             "url": "https://github.com/dumkaaa/ExtService"
         },
-        {
-            "type": "git",
-            "url": "https://github.com/marvin255/bxpimple"
-        }
     ]
 }
