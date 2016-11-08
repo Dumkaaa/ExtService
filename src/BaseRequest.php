@@ -4,6 +4,7 @@
 namespace ExtService;
 
 use ExtService\Interfaces\Request as IRequest;
+use ExtService\Traits\BaseGetter;
 use Bitrix\Main\Web;
 
 /**
@@ -11,6 +12,7 @@ use Bitrix\Main\Web;
  */
 class BaseRequest extends Web\HttpClient implements IRequest
 {
+    use BaseGetter;
     /**
      * @var array
      */
