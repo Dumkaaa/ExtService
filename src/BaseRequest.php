@@ -12,8 +12,6 @@ use Bitrix\Main\Web;
  */
 class BaseRequest extends Web\HttpClient implements IRequest
 {
-    public $requestHeaders;
-    public $responseHeaders;
     use BaseGetter;
     /**
      * @var array
