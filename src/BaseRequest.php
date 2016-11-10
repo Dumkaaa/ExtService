@@ -12,6 +12,8 @@ use Bitrix\Main\Web;
  */
 class BaseRequest extends Web\HttpClient implements IRequest
 {
+    public $requestHeaders;
+    public $responseHeaders;
     use BaseGetter;
     /**
      * @var array
@@ -37,10 +39,18 @@ class BaseRequest extends Web\HttpClient implements IRequest
      * @param array $params
      * @return \soglasie\services\interfaces\Request
      */
-    public function setParams(array $params = null)
+    public function setParams(array $params = null, $boolClean = true)
     {
-        isset($params['cookies']) ? $this->setCookies($params['cookies']) : '';
-        isset($params['headers']) ? $this->setHeaders($params['headers']) : '';
+        $this->requestHeaders = new Web\HTTPHeaders;
+
+        if ($boolClean)
+            $this->cleanParams();
+
+        if (isset($params['cookies']))
+            $this->setCookies($params['cookies']);
+
+        if (isset($params['headers']))
+            $this->setHeaders($params['headers']);
 
         foreach ($params as $name => $value) {
             $this->setParam($name, $value);
@@ -58,6 +68,11 @@ class BaseRequest extends Web\HttpClient implements IRequest
     public function setParam($name, $value)
     {
         $this->_params[trim($name)] = $value;
+        return $this;
+    }
+    public function cleanParams()
+    {
+        $this->_params = null;
         return $this;
     }
 
@@ -87,32 +102,6 @@ class BaseRequest extends Web\HttpClient implements IRequest
         foreach ($headers as $name => $value) {
            $this->setHeader($name, $value, true);
         }
-        return $this;
-    }
-
-    /**
-     * Задает заголовки запроса
-     * @param string $name
-     * @param string $value
-     * @param bool   $replace
-     * @return $this
-     */
-    public function setHeader($name, $value, $replace = true)
-    {
-        parent::setHeader(trim($name), $value, $replace);
-        return $this;
-    }
-
-    /**
-     * Задает куки запроса
-     * @param string $name
-     * @param string $value
-     * @param bool   $replace
-     * @return $this
-     */
-    public function setCookies(array $cookies)
-    {
-        parent::setCookies($cookies);
         return $this;
     }
 
