@@ -7,6 +7,8 @@ use ExtService\Traits\BaseSetter;
 use ExtService\BaseRequest;
 use ExtService\BaseResponse;
 use ExtService\Interfaces\Service as IService;
+use ExtService\Interfaces\Request as IRequest;
+use ExtService\Interfaces\Response as IResponse;
 
 class BaseService implements IService
 {
@@ -14,7 +16,7 @@ class BaseService implements IService
 
     protected $_params = [];
 
-    public function query(BaseRequest $request, BaseResponse $response)
+    public function query(IRequest $request, IResponse $response)
     {
         $request->query(
             strtoupper($request->getMethod()),

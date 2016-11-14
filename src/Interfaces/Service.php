@@ -3,9 +3,6 @@
 
 namespace ExtService\Interfaces;
 
-use ExtService\BaseRequest;
-use ExtService\BaseResponse;
-
 interface Service
 {
     public function setParams(array $params);
@@ -16,7 +13,7 @@ interface Service
 
     public function getParam($name);
 
-    public function query(BaseRequest $request, BaseResponse $response);
+    public function query(Request $request, Response $response);
 
     //public function queryAll(Request $request, ResponseList $response);
 }
