@@ -2,6 +2,7 @@
 
 namespace ExtService;
 
+use ExtService\Interfaces\Response;
 use ExtService\Interfaces\Response as IResponse;
 
 /**
@@ -12,18 +13,20 @@ class BaseResponse implements IResponse
     /**
      * @var mixed
      */
-    protected $_data = null;
-
+    protected $data = null;
     /**
-     * Задает данные ответа
-     * @param mixed $data
-     * @return \soglasie\services\interfaces\Response
+     * /**
+     * @var mixed
      */
-    public function setData($data)
-    {
-        $this->_data = $data;
-        return $this;
-    }
+    protected $cookie = null;
+    /**
+     * @var string
+     */
+    protected $error_code = null;
+    /**
+     * @var string
+     */
+    protected $error = null;
 
     /**
      * Возвращает данные ответа
@@ -31,47 +34,48 @@ class BaseResponse implements IResponse
      */
     public function getData()
     {
-        return $this->_data;
+        return $this->data;
     }
 
     /**
-    /**
-     * @var mixed
+     * Задает данные ответа
+     * @param mixed $data
+     * @return Response
      */
-    protected $_cookie = null;
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
     /**
      * Задает куки ответа
      * @param mixed $data
-     * @return \soglasie\services\interfaces\Response
+     * @return Response
      */
     public function setCookies($cookie)
     {
-        $this->_cookie = $cookie;
+        $this->cookie = $cookie;
         return $this;
     }
 
     /**
      * Возвращает куки ответа
-     * @return mixed
+     * @return \Bitrix\Main\Web\HttpCookies
      */
     public function getCookies()
     {
-        return $this->_cookie;
+        return $this->cookie;
     }
-
-    /**
-     * @var string
-     */
-    protected $_error_code = null;
 
     /**
      * Задает код ошибки
      * @param string $code
-     * @return \soglasie\services\interfaces\Response
+     * @return Response
      */
     public function setStatus($code)
     {
-        $this->_error_code = trim($code);
+        $this->error_code = trim($code);
         return $this;
     }
 
@@ -81,31 +85,26 @@ class BaseResponse implements IResponse
      */
     public function getStatus()
     {
-        return $this->_error_code;
-    }
-
-    /**
-     * @var string
-     */
-    protected $_error_message = null;
-
-    /**
-     * Задает сообщение об ошибке
-     * @param string $message
-     * @return \soglasie\services\interfaces\Response
-     */
-    public function setErrorMessage($message)
-    {
-        $this->_error_message = trim($message);
-        return $this;
+        return $this->error_code;
     }
 
     /**
      * Возвращает сообщение об ошибке
      * @return string
      */
-    public function getErrorMessage()
+    public function getError()
     {
-        return $this->_error_message;
+        return $this->error;
+    }
+
+    /**
+     * Задает сообщение об ошибке
+     * @param string $message
+     * @return Response
+     */
+    public function setError($message)
+    {
+        $this->error = trim($message);
+        return $this;
     }
 }

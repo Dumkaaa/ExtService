@@ -1,11 +1,10 @@
 <?php
 
-
 namespace ExtService;
 
+use Bitrix\Main\Web;
 use ExtService\Interfaces\Request as IRequest;
 use ExtService\Traits\BaseGetter;
-use \Bitrix\Main\Web;
 
 /**
  * Объект с запросом к сервису
@@ -56,21 +55,40 @@ class BaseRequest extends Web\HttpClient implements IRequest
         return $this;
     }
 
+    public function cleanParams()
+    {
+        $this->_params = null;
+        return $this;
+    }
+
+    public function setCookies(array $cookies)
+    {
+        $this->requestCookies->set($cookies);
+    }
+
+    /**
+     * Задает заголовки запроса из массива
+     * @param array $headers
+     * @return $this
+     */
+    public function setHeaders(array $headers)
+    {
+        foreach ($headers as $name => $value) {
+            $this->setHeader($name, $value, true);
+        }
+        return $this;
+    }
+
     /**
      * override
      * Задает параметр запроса
      * @param string $name
-     * @param mixed  $value
+     * @param mixed $value
      * @return BaseRequest
      */
     public function setParam($name, $value)
     {
         $this->_params[trim($name)] = $value;
-        return $this;
-    }
-    public function cleanParams()
-    {
-        $this->_params = null;
         return $this;
     }
 
@@ -89,18 +107,19 @@ class BaseRequest extends Web\HttpClient implements IRequest
         return $this->_params['body'];
     }
 
-
-    /**
-     * Задает заголовки запроса из массива
-     * @param array $headers
-     * @return $this
-     */
-    public function setHeaders(array $headers)
+    public function setAuthorization($user, $pass)
     {
-        foreach ($headers as $name => $value) {
-           $this->setHeader($name, $value, true);
-        }
-        return $this;
+        $this->setHeader("Authorization", "Basic " . base64_encode($user . ":" . $pass));
+    }
+
+    public function getHeaders()
+    {
+        return $this->responseHeaders;
+    }
+
+    public function getCookies()
+    {
+        return $this->responseCookies;
     }
 
 

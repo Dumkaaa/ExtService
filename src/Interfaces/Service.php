@@ -15,5 +15,4 @@ interface Service
 
     public function query(Request $request, Response $response);
 
-    //public function queryAll(Request $request, ResponseList $response);
 }

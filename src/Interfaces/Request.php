@@ -5,9 +5,8 @@ namespace ExtService\Interfaces;
 
 interface Request
 {
-    /*need*/
-
     public function __construct(array $params = null);
+
 
     public function setParams(array $params);
 
@@ -15,16 +14,16 @@ interface Request
 
     public function setHeaders(array $headers);
 
-
-
     public function setCookies(array $cookie);
 
+    public function setAuthorization($user, $pass);
 
 
-    //public function setData($data);
+    public function getParams();
 
+    public function getParam($name);
 
+    public function getHeaders();
 
-
-
+    public function getCookies();
 }
