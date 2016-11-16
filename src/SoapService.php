@@ -7,6 +7,7 @@ use ExtService\Interfaces\Request as IRequest;
 use ExtService\Interfaces\Response as IResponse;
 use ExtService\Interfaces\Service as IService;
 use SoapClient;
+use SoapFault;
 
 /**
  * Базовый класс для сервисовю Реализует обращение к методам и к стороннему апи
@@ -19,6 +20,19 @@ class SoapService extends SoapClient implements IService
     protected $params = [];
 
     /**
+     * Создание объекта и авторизация
+     */
+    public function __construct()
+    {
+        return parent::__construct(
+            $this->url,
+            [
+                "login" => $this->login,
+                "password" => $this->password,
+            ]
+        );
+    }
+    /**
      * Осуществляет HTTP запрос с сервису
      * @param IRequest $request Объект запроса
      * @param IResponse $response Объект ответа
@@ -26,16 +40,17 @@ class SoapService extends SoapClient implements IService
      */
     public function query(IRequest $request, IResponse $response)
     {
-
-        $result = $this->__soapCall(
-            $request->getParam("method"),
-            [$request->getParam("body")]
-        );
-
-        $response->setData($result);
-        //$response->setCookies($this->);
-        //$response->setStatus($request->getStatus());
-
+        try {
+            $result = $this->__soapCall(
+                $request->getParam("method"),
+                [$request->getParam("body")]
+            );
+            $response->setData($result);
+        } catch (SoapFault $soapFault) {
+            $response->setData($this->__getLastResponse());
+            $response->setStatus($this->__getLastResponseHeaders());
+            $response->setError($soapFault);
+        }
         return $response;
     }
 
