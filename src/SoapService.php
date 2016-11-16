@@ -20,19 +20,6 @@ class SoapService extends SoapClient implements IService
     protected $params = [];
 
     /**
-     * Создание объекта и авторизация
-     */
-    public function __construct()
-    {
-        return parent::__construct(
-            $this->url,
-            [
-                "login" => $this->login,
-                "password" => $this->password,
-            ]
-        );
-    }
-    /**
      * Осуществляет HTTP запрос с сервису
      * @param IRequest $request Объект запроса
      * @param IResponse $response Объект ответа
