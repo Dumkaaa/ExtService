@@ -29,12 +29,12 @@ class SoapService extends SoapClient implements IService
 
         $result = $this->__soapCall(
             $request->getParam("method"),
-            $request->getParam("body")
+            [$request->getParam("body")]
         );
 
         $response->setData($result);
-        $response->setCookies($this->);
-        $response->setStatus($request->getStatus());
+        //$response->setCookies($this->);
+        //$response->setStatus($request->getStatus());
 
         return $response;
     }
