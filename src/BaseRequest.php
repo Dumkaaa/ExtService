@@ -5,7 +5,7 @@ namespace ExtService;
 
 use ExtService\Interfaces\Request as IRequest;
 use ExtService\Traits\BaseGetter;
-use Bitrix\Main\Web;
+use \Bitrix\Main\Web;
 
 /**
  * Объект с запросом к сервису
@@ -35,7 +35,7 @@ class BaseRequest extends Web\HttpClient implements IRequest
     /**
      * Задает параметры запроса из массива
      * @param array $params
-     * @return \soglasie\services\interfaces\Request
+     * @return BaseRequest
      */
     public function setParams(array $params = null, $boolClean = true)
     {
