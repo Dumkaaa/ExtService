@@ -70,7 +70,7 @@ class BaseService implements IService
      * @param IRequest $request
      * @return IResponse | false
      */
-    public function action($name, IRequest $request = null, $cacheTime = 3)
+    public function action($name, IRequest $request = null, $cacheTime = 0)
     {
         $return = false;
         $method = 'action' . ucfirst($name);
