@@ -26,7 +26,7 @@ class BaseResponse implements IResponse
     /**
      * @var string
      */
-    protected $error = null;
+    protected $error = false;
 
     /**
      * Возвращает данные ответа
