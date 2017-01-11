@@ -104,7 +104,7 @@ class BaseResponse implements IResponse
      */
     public function setError($message)
     {
-        $this->error = trim($message);
+        $this->error = $message;
         return $this;
     }
 }

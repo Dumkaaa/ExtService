@@ -44,7 +44,7 @@ class BaseService implements IService
      * @param IRequest $request
      * @return IResponse | false
      */
-    public function get($name, IRequest $request = null, $cacheTime = 86400)
+    public function get($name, IRequest $request = null, $cacheTime = 43200)
     {
         $return = false;
         $method = 'get' . ucfirst($name);

@@ -29,6 +29,8 @@ class BaseRequest extends Web\HttpClient implements IRequest
         $this->requestCookies = new Web\HttpCookies();
         $this->responseCookies = new Web\HttpCookies();
         $this->setParams($params);
+        $this->setCompress(true);
+        $this->setVersion("1.1");
     }
 
     /**
