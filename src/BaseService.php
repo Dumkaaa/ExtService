@@ -58,6 +58,12 @@ class BaseService implements IService
                 return $return;
             } else {
                 $return = $this->$method();
+
+                if(is_null($return)) {
+                    $cache->abortDataCache();
+                } elseif (is_object($return) && $return->getError()) {
+                    $cache->abortDataCache();
+                }
             }
             $cache->endDataCache($return);
         }
@@ -84,6 +90,12 @@ class BaseService implements IService
                 return $return;
             } else {
                 $return = $this->$method($request);
+
+                if(is_null($return)) {
+                    $cache->abortDataCache();
+                } elseif (is_object($return) && $return->getError()) {
+                    $cache->abortDataCache();
+                }
             }
             $cache->endDataCache($return);
         }
