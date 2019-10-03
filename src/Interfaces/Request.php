@@ -1,12 +1,10 @@
 <?php
 
-
 namespace ExtService\Interfaces;
 
 interface Request
 {
     public function __construct(array $params = null);
-
 
     public function setParams(array $params);
 
@@ -17,7 +15,6 @@ interface Request
     public function setCookies(array $cookie);
 
     public function setAuthorization($user, $pass);
-
 
     public function getParams();
 

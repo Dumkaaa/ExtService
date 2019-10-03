@@ -6,7 +6,7 @@ use ExtService\Interfaces\Response;
 use ExtService\Interfaces\Response as IResponse;
 
 /**
- * Объект с ответом от сервиса
+ * Объект с ответом от сервиса.
  */
 class BaseResponse implements IResponse
 {
@@ -29,7 +29,8 @@ class BaseResponse implements IResponse
     protected $error = false;
 
     /**
-     * Возвращает данные ответа
+     * Возвращает данные ответа.
+     *
      * @return mixed
      */
     public function getData()
@@ -38,29 +39,36 @@ class BaseResponse implements IResponse
     }
 
     /**
-     * Задает данные ответа
+     * Задает данные ответа.
+     *
      * @param mixed $data
+     *
      * @return Response
      */
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
 
     /**
-     * Задает куки ответа
+     * Задает куки ответа.
+     *
      * @param mixed $data
+     *
      * @return Response
      */
     public function setCookies($cookie)
     {
         $this->cookie = $cookie;
+
         return $this;
     }
 
     /**
-     * Возвращает куки ответа
+     * Возвращает куки ответа.
+     *
      * @return \Bitrix\Main\Web\HttpCookies
      */
     public function getCookies()
@@ -69,18 +77,22 @@ class BaseResponse implements IResponse
     }
 
     /**
-     * Задает код ошибки
+     * Задает код ошибки.
+     *
      * @param string $code
+     *
      * @return Response
      */
     public function setStatus($code)
     {
         $this->error_code = trim($code);
+
         return $this;
     }
 
     /**
-     * Возвращает код ошибки
+     * Возвращает код ошибки.
+     *
      * @return string
      */
     public function getStatus()
@@ -89,7 +101,8 @@ class BaseResponse implements IResponse
     }
 
     /**
-     * Возвращает сообщение об ошибке
+     * Возвращает сообщение об ошибке.
+     *
      * @return string
      */
     public function getError()
@@ -98,13 +111,16 @@ class BaseResponse implements IResponse
     }
 
     /**
-     * Задает сообщение об ошибке
+     * Задает сообщение об ошибке.
+     *
      * @param string $message
+     *
      * @return Response
      */
     public function setError($message)
     {
         $this->error = $message;
+
         return $this;
     }
 }

@@ -2,16 +2,31 @@
 
 namespace ExtService\Traits;
 
+/**
+ * Trait BaseGetter.
+ *
+ * @package ExtService\Traits
+ */
 trait BaseGetter
 {
+    /**
+     * @return mixed
+     */
     public function getParams()
     {
         return $this->_params;
     }
 
-    public function getParam($name)
+    /**
+     * @param      $name
+     * @param null $default
+     *
+     * @return mixed|null
+     */
+    public function getParam($name, $default = null)
     {
-        return $this->_params[$name];
+        return array_key_exists($name, $this->_params)
+            ? $this->_params[$name]
+            : $default;
     }
-
 }
