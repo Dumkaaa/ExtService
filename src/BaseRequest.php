@@ -7,19 +7,20 @@ use ExtService\Interfaces\Request as IRequest;
 use ExtService\Traits\BaseGetter;
 
 /**
- * Объект с запросом к сервису
+ * Объект с запросом к сервису.
  */
 class BaseRequest extends Web\HttpClient implements IRequest
 {
     use BaseGetter;
+
     /**
      * @var array
      */
     protected $_params = [];
 
-
     /**
      * Конструктор
+     *
      * @param array $params
      */
     public function __construct(array $params = null)
@@ -30,36 +31,43 @@ class BaseRequest extends Web\HttpClient implements IRequest
         $this->responseCookies = new Web\HttpCookies();
         $this->setParams($params);
         $this->setCompress(true);
-        $this->setVersion("1.1");
+        $this->setVersion('1.1');
     }
 
     /**
-     * Задает параметры запроса из массива
+     * Задает параметры запроса из массива.
+     *
      * @param array $params
+     *
      * @return BaseRequest
      */
     public function setParams(array $params = null, $boolClean = true)
     {
-        $this->requestHeaders = new Web\HTTPHeaders;
+        $this->requestHeaders = new Web\HTTPHeaders();
 
-        if ($boolClean)
+        if ($boolClean) {
             $this->cleanParams();
+        }
 
-        if (isset($params['cookies']))
+        if (isset($params['cookies'])) {
             $this->setCookies($params['cookies']);
+        }
 
-        if (isset($params['headers']))
+        if (isset($params['headers'])) {
             $this->setHeaders($params['headers']);
+        }
 
         foreach ($params as $name => $value) {
             $this->setParam($name, $value);
         }
+
         return $this;
     }
 
     public function cleanParams()
     {
         $this->_params = null;
+
         return $this;
     }
 
@@ -69,8 +77,10 @@ class BaseRequest extends Web\HttpClient implements IRequest
     }
 
     /**
-     * Задает заголовки запроса из массива
+     * Задает заголовки запроса из массива.
+     *
      * @param array $headers
+     *
      * @return $this
      */
     public function setHeaders(array $headers)
@@ -78,19 +88,23 @@ class BaseRequest extends Web\HttpClient implements IRequest
         foreach ($headers as $name => $value) {
             $this->setHeader($name, $value, true);
         }
+
         return $this;
     }
 
     /**
      * override
-     * Задает параметр запроса
+     * Задает параметр запроса.
+     *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return BaseRequest
      */
     public function setParam($name, $value)
     {
         $this->_params[trim($name)] = $value;
+
         return $this;
     }
 
@@ -111,7 +125,7 @@ class BaseRequest extends Web\HttpClient implements IRequest
 
     public function setAuthorization($user, $pass)
     {
-        $this->setHeader("Authorization", "Basic " . base64_encode($user . ":" . $pass));
+        $this->setHeader('Authorization', 'Basic ' . base64_encode($user . ':' . $pass));
     }
 
     public function getHeaders()
@@ -123,6 +137,4 @@ class BaseRequest extends Web\HttpClient implements IRequest
     {
         return $this->responseCookies;
     }
-
-
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace ExtService\Interfaces;
 
 interface Service
@@ -14,5 +13,4 @@ interface Service
     public function getParam($name);
 
     public function query(Request $request, Response $response);
-
 }

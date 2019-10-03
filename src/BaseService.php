@@ -8,19 +8,22 @@ use ExtService\Interfaces\Response as IResponse;
 use ExtService\Interfaces\Service as IService;
 
 /**
- * Базовый класс для сервисовю Реализует обращение к методам и к стороннему апи
+ * Базовый класс для сервисовю Реализует обращение к методам и к стороннему апи.
  */
 class BaseService implements IService
 {
-    use Traits\BaseSetter, Traits\BaseGetter;
+    use Traits\BaseSetter;
+    use Traits\BaseGetter;
 
     /** @var array */
     protected $params = [];
 
     /**
-     * Осуществляет HTTP запрос с сервису
-     * @param IRequest $request Объект запроса
+     * Осуществляет HTTP запрос с сервису.
+     *
+     * @param IRequest  $request  Объект запроса
      * @param IResponse $response Объект ответа
+     *
      * @return IResponse
      */
     public function query(IRequest $request, IResponse $response)
@@ -39,9 +42,11 @@ class BaseService implements IService
     }
 
     /**
-     * Вызывает методы получения данных по имени
-     * @param string $name Имя методы, например для getCatalog это будет Catalog
+     * Вызывает методы получения данных по имени.
+     *
+     * @param string   $name    Имя методы, например для getCatalog это будет Catalog
      * @param IRequest $request
+     *
      * @return IResponse | false
      */
     public function get($name, IRequest $request = null, $cacheTime = 43200)
@@ -53,13 +58,14 @@ class BaseService implements IService
         if ($cache->initCache($cacheTime, get_class($this) . $method)) {
             $return = $cache->getVars();
         } elseif ($cache->startDataCache()) {
-            if (!is_callable(array($this, $method))) {
+            if (!is_callable([$this, $method])) {
                 $cache->abortDataCache();
+
                 return $return;
             } else {
                 $return = $this->$method();
 
-                if(is_null($return)) {
+                if (is_null($return)) {
                     $cache->abortDataCache();
                 } elseif (is_object($return) && $return->getError()) {
                     $cache->abortDataCache();
@@ -67,13 +73,16 @@ class BaseService implements IService
             }
             $cache->endDataCache($return);
         }
+
         return $return;
     }
 
     /**
-     * Вызывает методы обработки данных по имени
-     * @param string $name Имя методы, например для actionSave это будет Save
+     * Вызывает методы обработки данных по имени.
+     *
+     * @param string   $name    Имя методы, например для actionSave это будет Save
      * @param IRequest $request
+     *
      * @return IResponse | false
      */
     public function action($name, IRequest $request = null, $cacheTime = 0)
@@ -85,13 +94,14 @@ class BaseService implements IService
         if ($cache->initCache($cacheTime, get_class($this) . $method)) {
             $return = $cache->getVars();
         } elseif ($cache->startDataCache()) {
-            if (!is_callable(array($this, $method))) {
+            if (!is_callable([$this, $method])) {
                 $cache->abortDataCache();
+
                 return $return;
             } else {
                 $return = $this->$method($request);
 
-                if(is_null($return)) {
+                if (is_null($return)) {
                     $cache->abortDataCache();
                 } elseif (is_object($return) && $return->getError()) {
                     $cache->abortDataCache();
@@ -99,6 +109,7 @@ class BaseService implements IService
             }
             $cache->endDataCache($return);
         }
+
         return $return;
     }
 }
